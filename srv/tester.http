@@ -1,0 +1,81 @@
+###Getting Service document
+GET http://localhost:4004/odata/v4/CatalogService
+###Getting Service document metadata
+GET http://localhost:4004/odata/v4/CatalogService/$metadata
+###Getting Service Entity Data - Purchase orders
+GET http://localhost:4004/odata/v4/CatalogService/POs
+###Getting Service Entity Data - Single Purchase orders
+GET http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC30052
+###Getting Service Entity Data - Purchase orders's items
+GET http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC30052/Items
+###Getting Service Entity Data - Purchase orders with items together
+GET http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC30052?$expand=Items
+###Getting Service Employee data with pagination
+GET http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$top=10&$skip=10
+###Getting Service Employee data with filter
+GET http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=nameMiddle eq 'Richard'
+###Getting Service Employee data with filter
+GET http://localhost:4004/odata/v4/CatalogService/EmployeeSet?$filter=contains(nameFirst,'e')
+###Create new employee record
+POST http://localhost:4004/odata/v4/CatalogService/EmployeeSet
+Content-Type: application/json
+
+{
+    "nameFirst": "Arindam",
+    "nameMiddle": "",
+    "nameLast": "Seth",
+    "nameInitials": null,
+    "sex": "M",
+    "language": "E",
+    "phoneNumber": null,
+    "email": "arindam.seth@ibm.com",
+    "loginName": "ASETH",
+    "Currency_code": "USD",
+    "salaryAmount": 99999,
+    "accountNumber": "8877665544",
+    "bankId": "121000",
+    "bankName": "State Bank of India"
+}
+###Query Employee data based on new id
+GET http://localhost:4004/odata/v4/CatalogService/EmployeeSet/0a444177-b331-4a0e-a2bc-63d01ebfc243
+###Update employee data
+PATCH http://localhost:4004/odata/v4/CatalogService/EmployeeSet/0a444177-b331-4a0e-a2bc-63d01ebfc243
+Content-Type: application/json
+
+{
+    "salaryAmount": 100000
+}
+###Delete employee data
+DELETE http://localhost:4004/odata/v4/CatalogService/EmployeeSet/f770319e-32ca-446d-af21-624a8513b3d0
+###Test Boost action
+POST http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC30052/CatalogService.boost
+Content-Type: application/json
+
+{}
+###Calling the function
+GET http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC30052/CatalogService.largestOrder()
+###Read the data
+GET http://localhost:4004/odata/v4/CatalogService/POs/74867AD200E41EDBA5D8B0C98DC30052
+###Testing read only entities
+GET http://localhost:4004/odata/v4/my/ReadEmployeeSrv
+
+###Testing read only entities POST 
+POST http://localhost:4004/odata/v4/my/ReadEmployeeSrv
+Content-Type: application/json
+
+{
+    "nameFirst": "Arindam",
+    "nameMiddle": "",
+    "nameLast": "Seth",
+    "nameInitials": null,
+    "sex": "M",
+    "language": "E",
+    "phoneNumber": null,
+    "email": "arindam.seth@ibm.com",
+    "loginName": "ASETH",
+    "Currency_code": "USD",
+    "salaryAmount": 99999,
+    "accountNumber": "8877665544",
+    "bankId": "121000",
+    "bankName": "State Bank of India"
+}
